@@ -1,0 +1,14 @@
+doctype 5
+html
+  head
+    title= title
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='/stylesheets/foundation.css')
+    link(rel='stylesheet', href='/stylesheets/normalize.css')
+    script(src='/javascripts/vendor/custom.modernizr.js')
+  body
+    block content
+    script(src='/javascripts/vendor/zepto.js')    
+    script(src="/javascripts/foundation.min.js")
+    script
+        $(document).foundation();
