@@ -10,6 +10,9 @@
     "jade": "*",
     "passport": "~0.1.17",
     "bcrypt": "~0.7.6",
-    "socket.io": "~0.9.16"
+    "socket.io": "~0.9.16",
+    "connect-flash": "~0.1.1",
+    "mongoose": "~3.6.15",
+    "passport-local": "~0.1.6"
   }
 }
