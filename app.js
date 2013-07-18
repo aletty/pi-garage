@@ -8,13 +8,12 @@ var express = require('express')
   , server = require('http').createServer(app)
   , io = require('socket.io').listen(server)
   , routes = require('./routes')
-  , user = require('./routes/user')
-  , dev = require('./routes/dev')
+  , userRoute = require('./routes/user')
+  , devRoute = require('./routes/dev')
   , models = require('./models/models.js')
   , path = require('path')
   , passport = require('passport')
-  , LocalStrategy = require('passport-local').Strategy
-  , flash = require('connect-flash')
+  , pass = require('./routes/pass.js')
   , mongoose = require('mongoose');
 
 // all environments
@@ -27,10 +26,10 @@ app.configure(function(){
     app.use(express.bodyParser());
     app.use(express.cookieParser());
     app.use(express.session({secret : 'aboys'}));
+    app.use(express.methodOverride());
+    //passport initialization
     app.use(passport.initialize());
     app.use(passport.session());
-    app.use(flash());
-    app.use(express.methodOverride());
     app.use(app.router);
     app.use(express.static(path.join(__dirname, 'public')));
 
@@ -48,14 +47,16 @@ app.configure(function(){
     });
 });
 
-
 // development only
 if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
-app.get('/', routes.index);
-app.get('/login', user.login);
-app.get('/createUsers', dev.createUsers);
+app.get('/', pass.ensureAuthenticated, routes.index);
+app.get('/login', userRoute.getLogin);
+app.post('/login', userRoute.postLogin);
+app.get('/logout', userRoute.logout);
+app.get('/createUsers', devRoute.createUsers);
+
 
 server.listen(app.get('port'));

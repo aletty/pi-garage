@@ -6,13 +6,13 @@ exports.createUsers = function(req, res){
   var hashedarj = bcrypt.hashSync('arjun', 10);
   var hashedkar = bcrypt.hashSync('karan', 10);
 
-  var arjunUser = new models.User({
-    name: "Arjun",
+  var arjunUser = new models.userModel({
     username: "arjun",
+    email: "arjun.aletty@gmail.com",
     password: hashedarj
   });
-  var karanUser = new models.User({
-    name: "Karan",
+  var karanUser = new models.userModel({
+    email: "karanaletty95@gmail.com",
     username: "karan",
     password: hashedkar
   });
