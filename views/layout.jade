@@ -1,11 +1,14 @@
 doctype 5
 html
   head
+    meta(charset="utf-8")
+    meta(name="viewport", content="width=device-width")
+
     title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
     link(rel='stylesheet', href='/stylesheets/foundation.css')
     link(rel='stylesheet', href='/stylesheets/normalize.css')
     script(src='/javascripts/vendor/custom.modernizr.js')
+      
   body
     nav.top-bar
       ul.title-area
@@ -23,7 +26,7 @@ html
             else
               a(href='/logout') Log Out
     block content
-    script(src='/javascripts/vendor/zepto.js')    
+    script(src='/javascripts/vendor/jquery.js')    
     script(src="/javascripts/foundation.min.js")
     script
       $(document).foundation();
