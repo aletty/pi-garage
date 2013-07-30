@@ -1,0 +1,6 @@
+[submodule "pi-garage-server"]
+	path = pi-garage-server
+	url = https://github.com/aletty/pi-garage-server.git
+[submodule "server"]
+	path = server
+	url = https://github.com/aletty/pi-garage-server.git
