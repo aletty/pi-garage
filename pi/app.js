@@ -43,6 +43,6 @@ socket.on('connect', function() {
   console.log('connected on pi (yummy)');
 });
 
-socket.on('test', function() {
+socket.on('test pi', function() {
   console.log('it worked');
 });
