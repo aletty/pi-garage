@@ -37,7 +37,7 @@ app.get('/', routes.index);
 
 server.listen(app.get('port'));
 
-var socket = io.connect('192.168.1.37/pi', {port:4000});
+var socket = io.connect('http://aletty.herokuapp.com/pi');
 
 socket.on('connect', function() {
   console.log('connected on pi (yummy)');
