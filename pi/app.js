@@ -11,7 +11,10 @@ var server = require('http').createServer(app)
   , routes = require('./routes')
   , index = require('./routes/index')
   , http = require('http')
-  , path = require('path');
+  , path = require('path')
+  , async = require('async')
+  , gpio = require('pi-gpio')
+  , config = require('../config.js');
 
 // all environments
 app.configure(function(){
@@ -33,16 +36,48 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
+//routing
 app.get('/', routes.index);
 
+//initialize server
 server.listen(app.get('port'));
 
+
+//helper function
+function delayPinWrite(pin, value, callback) {
+  setTimeout(function() {
+    gpio.write(pin, value, callback);
+  }, config.relayTimout);
+}
+
+//communication with server via sockets
 var socket = io.connect('http://aletty.herokuapp.com/pi');
 
 socket.on('connect', function() {
   console.log('connected on pi (yummy)');
 });
 
-socket.on('test pi', function() {
-  console.log('it worked');
+socket.on('start garage', function() {
+  console.log('starting garage');
+  async.series([
+    function (callback) {
+      //open pin for output
+      gpio.open(config.garagePin, 'output', callback);
+    },
+    function (callback) {
+      //turn the relay on
+      gpio.open(config.garagePin, config.relayOn, callback);
+    },
+    function (callback) {
+      //turn the relay off after 500ms (simulate button press)
+      delayPinWrite(config.garagePin, config.relayOff, callback);
+    },
+    function (err, results) {
+      setTimeout( function () {
+        //close pin
+        gpio.close(config.garagePin);
+        socket.emit('finish garage');
+      }, config.relayTimout);
+    }
+  ]);
 });
