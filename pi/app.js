@@ -50,15 +50,6 @@ function delayPinWrite(pin, value, callback) {
   }, config.relayTimout);
 }
 
-//setup magnetic door sensor
-gpio.open(config.magnetPin, {direction: 'input', pull: 'pullup'}, function (err) {
-  if (err) console.log(err);
-
-  gpio.read(magnetPin, function (err, value) {
-    if (err) console.log(err);
-    console.log(value);
-  });
-});
 
 //communication with server via sockets
 var socket = io.connect('http://aletty.herokuapp.com/pi');
@@ -94,4 +85,14 @@ socket.on('start garage', function() {
       }, config.relayTimout);
     }
   ]);
+});
+
+//setup magnetic door sensor
+gpio.open(config.magnetPin, {direction: 'input', pull: 'pullup'}, function (err) {
+  if (err) console.log('open error');
+
+  gpio.read(config.magnetPin, function (err, value) {
+    if (err) console.log(err);
+    console.log(value);
+  });
 });
