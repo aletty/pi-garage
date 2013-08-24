@@ -78,6 +78,7 @@ socket.on('start garage', function() {
       setTimeout( function () {
         //close pin
         gpio.close(config.garagePin);
+        console.log('closing pin');
         socket.emit('finish garage');
       }, config.relayTimout);
     }
