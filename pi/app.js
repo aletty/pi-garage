@@ -69,12 +69,10 @@ socket.on('start garage', function() {
   async.series([
     function (callback) {
       //open pin for output
-      console.log('1');
       gpio.open(config.garagePin, {direction: 'output'}, callback);
     },
     function (callback) {
       //turn the relay on
-      console.log('2');
       gpio.write(config.garagePin, config.relayOn, callback);
     },
     function (callback) {
@@ -108,7 +106,6 @@ function checkMagnet() {
     if (value != currentMagVal){
       currentMagVal = value;
       notify.push(null, currentMagVal, 'garage');
-      console.log('pin val is ' + currentMagVal);
     }
   });
 }
