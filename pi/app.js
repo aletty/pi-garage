@@ -95,7 +95,11 @@ gpio.open(config.magnetPin, {direction: 'input', pull: 'pullup'}, function (err)
   }
 });
 
-gpio.read(config.magnetPin, function (err, value) {
-  if (err) console.log(err);
-  console.log(value);
-});
+function checkMagnet() {
+  gpio.read(config.magnetPin, function (err, value) {
+    if (err) console.log(err);
+    console.log('pin val' + value);
+  });
+}
+
+setInterval(checkMagnet, 500);
