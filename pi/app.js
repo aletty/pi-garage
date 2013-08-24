@@ -108,3 +108,9 @@ function checkMagnet() {
 }
 
 setInterval(checkMagnet, 1000);
+
+process.on('exit', function () {
+  gpio.close(config.magnetPin);
+  gpio.close(config.garagePin);
+  console.log('About to exit.');
+});
