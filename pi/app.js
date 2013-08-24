@@ -58,6 +58,10 @@ socket.on('connect', function() {
   console.log('connected on pi (yummy)');
 });
 
+//ensure gpio pins are closed
+gpio.close(config.magnetPin);
+gpio.close(config.garagePin);
+
 //garage open logic
 socket.on('start garage', function() {
   console.log('starting garage');
@@ -108,9 +112,3 @@ function checkMagnet() {
 }
 
 setInterval(checkMagnet, 1000);
-
-process.on('exit', function () {
-  gpio.close(config.magnetPin);
-  gpio.close(config.garagePin);
-  console.log('About to exit.');
-});
