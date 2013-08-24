@@ -62,10 +62,12 @@ socket.on('start garage', function() {
   async.series([
     function (callback) {
       //open pin for output
+      console.log('1');
       gpio.open(config.garagePin, 'output', callback);
     },
     function (callback) {
       //turn the relay on
+      console.log('2');
       gpio.open(config.garagePin, config.relayOn, callback);
     },
     function (callback) {
