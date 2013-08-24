@@ -89,7 +89,10 @@ socket.on('start garage', function() {
 
 //setup magnetic door sensor
 gpio.open(config.magnetPin, {direction: 'input', pull: 'pullup'}, function (err) {
-  if (err) console.log('open error');
+  if (err) {
+    console.log('open error');
+    gpio.close(config.magnetPin);
+  }
 
   gpio.read(config.magnetPin, function (err, value) {
     if (err) console.log(err);
