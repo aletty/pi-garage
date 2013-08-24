@@ -14,7 +14,8 @@ var server = require('http').createServer(app)
   , path = require('path')
   , async = require('async')
   , gpio = require('pi-gpio')
-  , config = require('./config.js');
+  , config = require('./config.js')
+  , notify = require('./notify.js');
 
 // all environments
 app.configure(function(){
@@ -106,6 +107,7 @@ function checkMagnet() {
     if (err) console.log(err);
     if (value != currentMagVal){
       currentMagVal = value;
+      notify.push(null, currentMagVal, 'garage');
       console.log('pin val is ' + currentMagVal);
     }
   });
