@@ -93,9 +93,9 @@ gpio.open(config.magnetPin, {direction: 'input', pull: 'pullup'}, function (err)
     console.log('open error');
     gpio.close(config.magnetPin);
   }
+});
 
-  gpio.read(config.magnetPin, function (err, value) {
-    if (err) console.log(err);
-    console.log(value);
-  });
+gpio.read(config.magnetPin, function (err, value) {
+  if (err) console.log(err);
+  console.log(value);
 });
