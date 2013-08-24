@@ -14,7 +14,7 @@ var server = require('http').createServer(app)
   , path = require('path')
   , async = require('async')
   , gpio = require('pi-gpio')
-  , config = require('../config.js');
+  , config = require('./config.js');
 
 // all environments
 app.configure(function(){
@@ -62,6 +62,7 @@ socket.on('start garage', function() {
   async.series([
     function (callback) {
       //open pin for output
+      console.log('1');
       gpio.open(config.garagePin, 'output', callback);
     },
     function (callback) {
