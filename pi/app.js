@@ -95,7 +95,7 @@ gpio.open(config.magnetPin, {direction: 'input', pull: 'pullup'}, function (err)
   }
 });
 
-var currentMagVal = 0;
+var currentMagVal = null;
 
 function checkMagnet() {
   gpio.read(config.magnetPin, function (err, value) {
@@ -108,6 +108,10 @@ function checkMagnet() {
 }
 
 setInterval(checkMagnet, 1000);
+
+process.on('SIGINT', function () {
+  process.exit(code=0);
+});
 
 process.on('exit', function () {
   gpio.close(config.magnetPin);
