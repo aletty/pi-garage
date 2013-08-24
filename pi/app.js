@@ -68,7 +68,7 @@ socket.on('start garage', function() {
     function (callback) {
       //turn the relay on
       console.log('2');
-      gpio.open(config.garagePin, config.relayOn, callback);
+      gpio.write(config.garagePin, config.relayOn, callback);
     },
     function (callback) {
       //turn the relay off after 500ms (simulate button press)
