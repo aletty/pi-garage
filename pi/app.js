@@ -47,8 +47,9 @@ server.listen(app.get('port'));
 //helper function
 function delayPinWrite(pin, value, callback) {
   setTimeout(function() {
-    gpio.write(pin, value, callback);
-  }, config.relayTimout);
+    gpio.write(pin, value);
+  }, config.relayTimeout);
+  callback(null, 'delay'); 
 }
 
 
@@ -85,7 +86,7 @@ socket.on('start garage', function() {
         gpio.close(config.garagePin);
         console.log('closing pin');
         socket.emit('finish garage');
-      }, config.relayTimout);
+      }, config.relayTimeout);
     }
   ]);
 });
