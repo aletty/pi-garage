@@ -65,7 +65,6 @@ gpio.close(config.garagePin);
 
 //garage open logic
 socket.on('start garage', function() {
-  console.log('starting garage');
   async.series([
     function (callback) {
       //open pin for output
@@ -83,7 +82,6 @@ socket.on('start garage', function() {
       setTimeout( function () {
         //close pin
         gpio.close(config.garagePin);
-        console.log('closing pin');
         socket.emit('finish garage');
       }, config.relayTimeout);
     }
