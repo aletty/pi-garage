@@ -47,9 +47,8 @@ server.listen(app.get('port'));
 //helper function
 function delayPinWrite(pin, value, callback) {
   setTimeout(function() {
-    gpio.write(pin, value);
+    gpio.write(pin, value, callback);
   }, config.relayTimeout);
-  callback(null, 'delay'); 
 }
 
 
